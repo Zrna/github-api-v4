@@ -1,6 +1,32 @@
+@import '../../styles/utilities';
+@import '../../styles/mediaQueries';
+
 .user-info {
-  img {
+  @extend %border-layout;
+
+  .avatar {
     width: 260px;
     height: 260px;
+  }
+
+  div {
+    padding: 10px;
+
+    .icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 10px;
+    }
+  }
+}
+
+@include tablet {
+  .user-info {
+    margin-bottom: 20px;
+  
+    .avatar {
+      width: 100%;
+      height: auto;
+    }
   }
 }
