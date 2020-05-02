@@ -65,7 +65,6 @@
   .search-container {
     background: $blue-color;
     padding: 20px 15px;
-    margin-bottom: 30px;
 
     .title {
       span {
@@ -99,6 +98,10 @@
       }
     }
   }
+
+  .user-profile {
+    margin: 30px 0;
+  }
 }
 
 @include tablet {
@@ -109,6 +112,12 @@
           width: calc(100vw - 40vw);
         }
       }
+    }
+  }
+
+  .container {
+    .search-container {
+      padding: 20px 10px;
     }
   }
 }

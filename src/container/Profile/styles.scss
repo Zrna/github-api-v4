@@ -1,0 +1,39 @@
+@import '../../styles/mediaQueries';
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+
+  .column {
+    display: flex;
+    flex-direction: column;
+
+    &:first-child {
+      width: 20%;
+      align-items: center;
+    }
+
+    &:nth-child(2) {
+      width: 80%;
+    }
+  }
+}
+
+@include tablet {
+  .row {
+    .column {
+      margin: 0 20px;
+      
+      &:first-child {
+        width: 100%;
+        align-items: unset;
+      }
+  
+      &:nth-child(2) {
+        width: 100%;
+      }
+    }
+  }
+}

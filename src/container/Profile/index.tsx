@@ -5,6 +5,8 @@ import { gql } from 'apollo-boost';
 // eslint-disable-next-line no-unused-vars
 import { IRepository } from '../../../domain/interfaces';
 
+import './styles.scss';
+
 import UserInfo from '../../components/UserInfo';
 import UserRepository from '../../components/UserRepository';
 
@@ -38,20 +40,22 @@ const Profile = ({ user }: { user: string }) => {
           const { loading, error, data } = result;
 
           if (loading) return <p>Loading...</p>;
-          if (user === '') return <p>Please type Github username</p>;
+          if (user === '') return null;
           if (error) return <p>Error</p>;
           
           const repositories = data.user.repositories.edges;
 
           return (
-            <>
-              <UserInfo data={data} />
-              <div>
+            <div className='row'>
+              <div className='column'>
+                <UserInfo data={data} />
+              </div>
+              <div className='column'>
                 {
                   repositories.map((repository: IRepository, i: number) => <UserRepository key={i} repository={repository} />)
                 }
               </div>
-            </>
+            </div>
           );
         })
       }

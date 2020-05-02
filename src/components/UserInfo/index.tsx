@@ -2,11 +2,13 @@ import * as React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { IUser } from '../../../domain/interfaces';
 
+import './styles.scss';
+
 const UserInfo = ({ data: { user } }: { data: { user: IUser } }) => {
   const { avatarUrl, login, email, url } = user;
 
   return (
-    <div>
+    <div className='user-info'>
       <img src={avatarUrl} alt={login} />
       <p>Usename: {login}</p>
       <p>Email: {email}</p>
