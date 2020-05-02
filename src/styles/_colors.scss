@@ -1,3 +1,3 @@
 $blue-color: #099cec;
-$blue-color-light: #42b9f9;
+$blue-color-light: lighten($blue-color, 10%);
 $gray-color: #ccc;
