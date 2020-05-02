@@ -1,3 +1,36 @@
+@import '../../styles/utilities';
+@import '../../styles/mediaQueries';
+
 .user-repository {
+  @extend %border-layout;
+  padding: 10px;
+  margin-top: 20px;
+  margin-right: 40px;
   word-break: break-word;
+
+  .title {
+    a {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    img {
+      width: 18px;
+      vertical-align: text-top;
+      margin-right: 10px;
+    }
+  }
+
+  .description {
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+@include tablet {
+  .user-repository {
+    margin-right: 0;
+  }
 }

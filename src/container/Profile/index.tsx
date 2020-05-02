@@ -51,6 +51,7 @@ const Profile = ({ user }: { user: string }) => {
                 <UserInfo data={data} />
               </div>
               <div className='column'>
+                <h1>Repositories</h1>
                 {
                   repositories.map((repository: IRepository, i: number) => <UserRepository key={i} repository={repository} />)
                 }
