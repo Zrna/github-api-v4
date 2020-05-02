@@ -7,6 +7,7 @@ import { IRepository } from '../../../domain/interfaces';
 
 import './styles.scss';
 
+import Spinner from '../../components/Spinner';
 import UserInfo from '../../components/UserInfo';
 import UserRepository from '../../components/UserRepository';
 
@@ -39,9 +40,9 @@ const Profile = ({ user }: { user: string }) => {
         ((result: any) => {
           const { loading, error, data } = result;
 
-          if (loading) return <p>Loading...</p>;
+          if (loading && user !== '') return <Spinner />;
           if (user === '') return null;
-          if (error) return <p>Error</p>;
+          if (error) return <p>Something went wrong :( <br /> Check the entered username.</p>;
           
           const repositories = data.user.repositories.edges;
 
@@ -52,7 +53,9 @@ const Profile = ({ user }: { user: string }) => {
               </div>
               <div className='column'>
                 <h1>Repositories</h1>
-                {
+                {repositories.length === 0 ?
+                  <p>No repositories available.</p>
+                  :
                   repositories.map((repository: IRepository, i: number) => <UserRepository key={i} repository={repository} />)
                 }
               </div>
