@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
 
@@ -34,8 +35,26 @@ const GET_USER = gql`
 `;
 
 const Profile = ({ user }: { user: string }) => {
+  const [repositories, setRepositories] = useState([]);
+  const [sortedRepositories, setSortedRepositories] = useState([]);
+
+  useEffect(() => {
+    setRepositories(sortedRepositories);
+  }, [sortedRepositories]);
+
+  const sortRepositoriesByName = () => {  
+    const sorted = repositories.sort((a: IRepository, b: IRepository) => {
+      return a.node.name.toLowerCase().localeCompare(b.node.name.toLowerCase());
+    });
+    setSortedRepositories(sorted);
+  };
+
   return (
-    <Query query={GET_USER} variables={{ 'user': user }}>
+    <Query
+      query={GET_USER}
+      variables={{ 'user': user }}
+      onCompleted={(data: any) => setRepositories(data.user.repositories.edges)}
+    >
       {
         ((result: any) => {
           const { loading, error, data } = result;
@@ -43,8 +62,6 @@ const Profile = ({ user }: { user: string }) => {
           if (loading && user !== '') return <Spinner />;
           if (user === '') return null;
           if (error) return <p>Something went wrong :( <br /> Check the entered username.</p>;
-          
-          const repositories = data.user.repositories.edges;
 
           return (
             <div className='row'>
@@ -53,10 +70,14 @@ const Profile = ({ user }: { user: string }) => {
               </div>
               <div className='column'>
                 <h1>Repositories</h1>
+
                 {repositories.length === 0 ?
                   <p>No repositories available.</p>
                   :
-                  repositories.map((repository: IRepository, i: number) => <UserRepository key={i} repository={repository} />)
+                  <>
+                    <p className='pointer' onClick={sortRepositoriesByName}>Sort repositories by name</p>
+                    {repositories.map((repository: IRepository, i: number) => <UserRepository key={i} repository={repository} />)}
+                  </>
                 }
               </div>
             </div>
