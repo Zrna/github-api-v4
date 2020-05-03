@@ -11,10 +11,10 @@ const Main = () => {
   const [ initialView, setInitialView ] = useState(true);
   const inputElement = useRef<HTMLInputElement>(null);
 
-  const handleFormSubmit = (e: any) => {
+  const handleFormSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault();
     setInitialView(false);
-    if (inputElement.current) setUser(inputElement.current.value);
+    if (inputElement.current) setUser(inputElement.current.value.trim());
   };
 
   const resetDataToDefault = () => {
@@ -30,7 +30,7 @@ const Main = () => {
           <span>Github Search</span>
         </div>
         <form onSubmit={handleFormSubmit}>
-          <input type='text' ref={inputElement} placeholder='Type Github username' />
+          <input type='text' ref={inputElement} placeholder='Type Github username' required />
           <button type='submit'>Search</button>
         </form>
       </div>
